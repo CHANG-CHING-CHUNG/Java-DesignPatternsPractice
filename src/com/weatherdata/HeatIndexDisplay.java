@@ -2,6 +2,9 @@ package com.weatherdata;
 
 public class HeatIndexDisplay implements Observer, DisplayElement{
     float heatIndex = 0.0f;
+    private float t;
+    private float rh;
+    private float pressure;
     private WeatherData weatherData;
 
     public HeatIndexDisplay(WeatherData weatherData) {
@@ -9,7 +12,10 @@ public class HeatIndexDisplay implements Observer, DisplayElement{
         weatherData.registerObserver(this);
     }
 
-    public void update(float t, float rh, float pressure) {
+    public void update() {
+        this.t = weatherData.getTemperature();
+        this.rh = weatherData.getHumidity();
+        this.pressure = weatherData.getPressure();
         heatIndex = computeHeatIndex(t, rh);
         display();
     }
